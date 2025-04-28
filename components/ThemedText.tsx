@@ -5,7 +5,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'defaultBold' | 'subtitle' | 'link' | 'caption';
+  type?: 'default' | 'title' | 'defaultMedium' | 'defaultSemiBold' | 'defaultBold' | 'subtitle' | 'link' | 'caption';
 };
 
 export function ThemedText({
@@ -23,6 +23,7 @@ export function ThemedText({
         { color, fontFamily: 'Poppins' },
         type === 'default' ? styles.default : undefined,
         type === 'title' ? styles.title : undefined,
+        type === 'defaultMedium' ? styles.defaultMedium : undefined,
         type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
         type === 'defaultBold' ? styles.defaultBold : undefined,
         type === 'subtitle' ? styles.subtitle : undefined,
@@ -40,24 +41,29 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 24,
   },
+  defaultMedium: {
+    fontSize: 16,
+    lineHeight: 24,
+    fontFamily: 'Poppins-Medium'
+  },
   defaultSemiBold: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: '500',
+    fontFamily: 'Poppins-SemiBold'
   },
   defaultBold: {
     fontSize: 16,
     lineHeight: 24,
-    fontWeight: '600',
+    fontFamily: 'Poppins-Bold'
   },
   title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    lineHeight: 32,
+    fontSize: 20,
+    lineHeight: 26,
+    fontFamily: 'Poppins-Bold'
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: 'Poppins-SemiBold'
   },
   link: {
     lineHeight: 30,
@@ -65,7 +71,7 @@ const styles = StyleSheet.create({
     color: '#0a7ea4',
   },
   caption: {
-    fontSize: 12,
+    fontSize: 13,
     lineHeight: 16,
     color: '#6e6e6e',
   }

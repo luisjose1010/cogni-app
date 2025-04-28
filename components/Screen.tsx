@@ -16,7 +16,8 @@ export function Screen({ children, style, ...props }: ScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
+    paddingHorizontal: 16,
   }
 });

@@ -49,7 +49,7 @@ export default function TabLayout() {
             options={{
               title: tab.title,
               tabBarLabel: ({ color, focused, children }) => focused ? (
-                <ThemedText darkColor={color} lightColor={color} type="defaultSemiBold" style={{ fontSize: 12, marginTop: 2, marginBottom: -2 }}>
+                <ThemedText darkColor={color} lightColor={color} type="defaultMedium" style={{ fontSize: 12, marginTop: 2, marginBottom: -2 }}>
                   {children}
                 </ThemedText>
               ) : (

@@ -3,59 +3,60 @@ import { StyleSheet, View } from 'react-native';
 import { ThemedText } from '../ThemedText';
 import { ThemedView } from '../ThemedView';
 import { IconSymbol, type IconSymbolName } from "./IconSymbol";
-import { ProgressBar } from './ProgressBar'; // Asumiendo que crearás un componente ProgressBar
+import { ProgressBar } from './ProgressBar';
+import { Card } from "./Card";
 
 interface ProgressCardProps {
   title: string;
   subtitle?: string;
-  value: string;
-  progress: number; // Valor entre 0 y 1
-  chipText?: string;
-  showChip?: boolean;
-  iconName?: IconSymbolName; // Nombre del icono (opcional)
-  color?: string; // Color del icono (opcional)
+  value: number;
+  change?: number;
+  Icon?: any;
+  iconName?: IconSymbolName;
+  color?: string;
+  suffix?: string;
 }
 
 export function ProgressCard(
-  { title, subtitle, value, progress, chipText, showChip, iconName, color }
+  { title, subtitle, value, change, iconName, color, suffix, Icon }
     : ProgressCardProps
 ) {
+  const progress = value / 100;
+
   return (
-    <View style={styles.container}>
+    <Card>
       <View style={styles.header}>
-        {iconName && <IconSymbol name={iconName} size={20} color={color || 'gray'} style={styles.icon} />}
+        {Icon && <Icon width={24} height={24} style={styles.icon} />}
+        {iconName && <IconSymbol name={iconName} size={20} color={color ?? 'gray'} style={styles.icon} />}
         <View>
-          <ThemedText type="subtitle" style={styles.title}>{title}</ThemedText>
+          <ThemedText type="defaultSemiBold">{title}</ThemedText>
           {subtitle && <ThemedText type="caption" style={styles.subtitle}>{subtitle}</ThemedText>}
         </View>
       </View>
 
       <View style={styles.valueContainer}>
-        <ThemedText type="subtitle" style={styles.value}>{value}</ThemedText>
+        <View style={styles.valueContainer}>
+          <ThemedText type="subtitle" style={styles.value}>{value}{!suffix && "%"}</ThemedText>
+          {suffix && <ThemedText type="caption" style={styles.subtitle}>{suffix}</ThemedText>}
+        </View>
 
-        {showChip && chipText && (
-          <ThemedView style={styles.chip}>
-            <ThemedText type="caption" style={styles.chipText}>{chipText}</ThemedText>
-          </ThemedView>
-        )}
+        {
+          change && (
+            <ThemedView style={styles.chip}>
+              <ThemedText type="caption" style={styles.chipText}>
+                {change < 0 || '+'}{change}% esta semana
+              </ThemedText>
+            </ThemedView>
+          )
+        }
       </View>
 
       <ProgressBar progress={progress} color={color} />
-    </View>
+    </Card>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.1)',
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 8, // Espacio entre las tarjetas
-    backgroundColor: 'white', // O el color de fondo temático
-    width: '80%',
-  },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -64,11 +65,7 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 8,
   },
-  title: {
-    fontSize: 16,
-  },
   subtitle: {
-    color: 'gray',
     fontSize: 12,
   },
   valueContainer: {
@@ -78,19 +75,17 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
   },
   chip: {
-    backgroundColor: '#e0f7fa', // Un color claro para el chip
+    backgroundColor: '#DCFCE7',
     borderRadius: 8,
     paddingVertical: 4,
     paddingHorizontal: 8,
     marginTop: 8,
-    alignSelf: 'flex-start', // Para que el chip se ajuste al contenido
+    alignSelf: 'flex-start',
   },
   chipText: {
-    color: '#26a69a',
+    color: '#166534',
     fontSize: 12,
   },
 });

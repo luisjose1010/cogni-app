@@ -8,13 +8,11 @@ interface ProgressBarProps {
 
 export function ProgressBar({ progress, color }: ProgressBarProps) {
   const progressBarWidth: DimensionValue = `${(progress || 0) * 100}%`;
-  const progressBarColor = color ?? 'black';
+  const backgroundColor = color ?? '#f0f0f0';
 
   return (
-    <View style={styles.container}>
-      <View style={
-        { ...styles.bar, width: progressBarWidth, backgroundColor: progressBarColor }
-      } />
+    <View style={[styles.container, { backgroundColor }]}>
+      <View style={[styles.bar, { width: progressBarWidth }]} />
     </View>
   );
 }
@@ -22,13 +20,13 @@ export function ProgressBar({ progress, color }: ProgressBarProps) {
 const styles = StyleSheet.create({
   container: {
     height: 8,
-    backgroundColor: '#f0f0f0',
     borderRadius: 4,
-    overflow: 'hidden', // Para que la barra interior no se salga del borde
+    overflow: 'hidden',
     marginBottom: 8,
   },
   bar: {
     height: '100%',
     borderRadius: 4,
+    backgroundColor: 'black',
   },
 });
